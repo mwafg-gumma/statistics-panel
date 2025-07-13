@@ -1,50 +1,53 @@
-
 name: Deploy
 
 on:
   push:
     branches:
-      - main
+      - main # هذا الـ workflow سيعمل عندما يتم push للكود على فرع 'main'
 
 jobs:
   build:
     name: Build
-    runs-on: ubuntu-latest
+    runs-on: ubuntu-latest # استخدم أحدث إصدار من Ubuntu
 
     steps:
-      - name: Checkout repo
-        uses: actions/checkout@v3
+      - name: Checkout repository
+        uses: actions/checkout@v4 # استخدم أحدث إصدار من action/checkout
 
-      - name: Setup Node
-        uses: actions/setup-node@v3
+      - name: Setup Node.js
+        uses: actions/setup-node@v4 # استخدم أحدث إصدار من action/setup-node
+        with:
+          node-version: '20' # يمكنك تحديد إصدار Node.js الذي تستخدمه (مثلاً '18' أو '20')
+          cache: 'npm' # فعل الكاش لـ npm لسرعة تثبيت الـ dependencies
 
       - name: Install dependencies
-        uses: bahmutov/npm-install@v1
+        run: npm ci # 'npm ci' أسرع وأكثر موثوقية في بيئات CI/CD من 'npm install'
 
       - name: Build project
-        run: npm run build
+        run: npm run build # تنفيذ أمر بناء مشروع Vite الخاص بك
 
       - name: Upload production-ready build files
-        uses: actions/upload-artifact@v3
+        uses: actions/upload-artifact@v4 # استخدم أحدث إصدار من action/upload-artifact
         with:
-          name: production-files
-          path: ./dist
+          name: production-files # اسم للـ artifact الذي سيتم رفعه
+          path: ./dist # مسار مجلد الـ build الناتج من Vite
 
   deploy:
     name: Deploy
-    needs: build
+    needs: build # هذا الـ job يعتمد على نجاح الـ job المسمى 'build'
     runs-on: ubuntu-latest
-    if: github.ref == 'refs/heads/main'
+    if: github.ref == 'refs/heads/main' # هذا الـ job سيعمل فقط إذا كان الـ push على فرع 'main'
 
     steps:
       - name: Download artifact
-        uses: actions/download-artifact@v3
+        uses: actions/download-artifact@v4 # استخدم أحدث إصدار من action/download-artifact
         with:
-          name: production-files
-          path: ./dist
+          name: production-files # اسم الـ artifact المراد تنزيله (نفس الاسم في خطوة الرفع)
+          path: ./dist # المسار الذي سيتم تنزيل الـ artifact إليه
 
       - name: Deploy to GitHub Pages
-        uses: peaceiris/actions-gh-pages@v3
+        uses: peaceiris/actions-gh-pages@v3 # هذا الـ action هو الذي يقوم بالنشر الفعلي
         with:
-          github_token: ${{ secrets.GITHUB_TOKEN }}
-          publish_dir: ./dist
+          github_token: ${{ secrets.GITHUB_TOKEN }} # توكن الأمان (متاح تلقائياً في GitHub Actions)
+          publish_dir: ./dist # المجلد الذي يحتوي على الملفات الجاهزة للنشر
+          publish_branch: gh-pages # الفرع الذي سيتم النشر عليه في GitHub Pages
