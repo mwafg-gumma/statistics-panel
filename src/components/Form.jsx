@@ -1,4 +1,4 @@
-import Back from '../assets/image/Back.png'
+// import Back from '../assets/image/Back.png'
 import {FaUser,FaRoute} from 'react-icons/fa'
 import { NavLink } from 'react-router-dom'
 
@@ -70,7 +70,7 @@ return (
               {/* img */}
             <div className="mx-3 relative flex items-center justify-center">
             <img
-                src={Back}
+                src="/assets/image/back.png"
                 alt="Sing Img"
                 className="rounded-md w-[700px] h-[450px] object-cover brightness-75"
                 style={{ backgroundColor: "white" }}
