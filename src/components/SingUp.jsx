@@ -1,5 +1,5 @@
 
-import Background from '../assets/images/Background.png';
+// import Background from '../assets/images/Background.png';
 import { NavLink } from "react-router-dom"
 import { FaUser, FaTachometerAlt,FaFacebook,FaInstagram,FaTwitter,FaLinkedin,FaGithub } from "react-icons/fa"
 
@@ -9,7 +9,7 @@ const SingUp = () => {
       <section
         className="relative h-[600px] md:w-[1250px] m-1 rounded-md flex flex-col "
         style={{
-          backgroundImage: `url(${Background})`,
+          // backgroundImage: `url(${Background})`,
           backgroundSize: "cover",
           backgroundPosition: "center"
         }}
