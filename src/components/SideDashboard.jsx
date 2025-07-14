@@ -1,5 +1,5 @@
 import { FaChartPie,FaHome, FaLaptop,FaCalendar,FaWallet,FaGlobe,FaUser,FaSignInAlt,FaUserPlus } from "react-icons/fa"
-import Document from '../assets/image/Document.png'
+// import Document from '../assets/image/Document.png'
 import {NavLink} from 'react-router-dom'
 const SideDashboard = () => {
 return (
@@ -64,7 +64,7 @@ return (
             </div>
             {/* help side */}
             <div className="my-2">
-                <img src={Document} alt="Document" className="w-[100px] object-cover mx-16" />
+                {/* <img src={Document} alt="Document" className="w-[100px] object-cover mx-16" /> */}
                 <div className="text-center">
                     <h3 className="p-1 text-lg text-sky-500">Need help ?</h3>
                     <p className="p-1">Please Check Our Docs</p>
